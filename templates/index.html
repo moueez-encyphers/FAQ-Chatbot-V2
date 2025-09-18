@@ -61,8 +61,8 @@
     // ✅ Always scroll to bottom after refresh or new message
     window.onload = () => {
       messages.scrollTop = messages.scrollHeight;
+      document.getElementById("user_input").focus();
     };
-
     // Press Enter to send
     document.getElementById("user_input").addEventListener("keypress", function (e) {
       if (e.key === "Enter") {
