@@ -10,18 +10,19 @@ body {
 /* Chatbot toggle button */
 #chat-toggle {
     position: fixed;
-    bottom: 25px;
-    right: 25px;
+    bottom: 20px;
+    right: 20px;
     background: #00bcd4;
     color: white;
     border: none;
     border-radius: 50%;
-    width: 70px; /* bigger button */
-    height: 70px; /* bigger button */
-    font-size: 30px;
+    width: 60px;
+    height: 60px;
+    font-size: 26px;
     cursor: pointer;
     box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.4);
     transition: transform 0.2s ease;
+    z-index: 1000;
 }
 
 #chat-toggle:hover {
@@ -31,23 +32,26 @@ body {
 /* Chatbox popup */
 #chatbox {
     position: fixed;
-    bottom: 110px;
-    right: 25px;
-    width: 420px;  /* bigger window */
-    height: 550px; /* bigger window */
+    bottom: 90px;
+    right: 20px;
+    width: 30vw;         /* 💡 use % of screen for desktops */
+    min-width: 320px;    /* don’t shrink too small */
+    max-width: 420px;    /* keep reasonable max */
+    height: 70vh;
     background: #0d1b2a;
     border-radius: 14px;
     box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.5);
     display: none;
     flex-direction: column;
     overflow: hidden;
+    z-index: 999;
 }
 
 /* Header */
 #chatbox-header {
     background: #1b263b;
     color: white;
-    padding: 15px;
+    padding: 14px;
     font-weight: bold;
     text-align: left;
     font-size: 16px;
@@ -62,18 +66,18 @@ body {
     background: #0d1b2a;
 }
 
-/* Message row wrapper */
+/* Message rows */
 .message-row {
     display: flex;
     margin: 8px 0;
 }
 
 .message-row.user {
-    justify-content: flex-end; /* push to right */
+    justify-content: flex-end;
 }
 
 .message-row.bot {
-    justify-content: flex-start; /* push to left */
+    justify-content: flex-start;
 }
 
 /* Chat bubbles */
@@ -84,7 +88,7 @@ body {
     border-radius: 16px 16px 0 16px;
     font-size: 14px;
     display: inline-block;
-    max-width: 70%;  /* wrap long text */
+    max-width: 75%;
     word-wrap: break-word;
     overflow-wrap: break-word;
     white-space: pre-wrap;
@@ -97,7 +101,7 @@ body {
     border-radius: 16px 16px 16px 0;
     font-size: 14px;
     display: inline-block;
-    max-width: 70%;  /* wrap long text */
+    max-width: 75%;
     word-wrap: break-word;
     overflow-wrap: break-word;
     white-space: pre-wrap;
@@ -126,7 +130,7 @@ body {
     background: #0096c7;
     color: white;
     border: none;
-    padding: 10px 18px;
+    padding: 10px 16px;
     margin-left: 8px;
     border-radius: 20px;
     cursor: pointer;
@@ -144,4 +148,33 @@ body {
 
 #clear-btn:hover {
     background: #c71c2c;
+}
+
+/* ✅ Responsive tweaks */
+/* ✅ Laptop screens */
+@media (max-width: 1280px) {
+    #chatbox {
+        width: 40vw;   /* take more space on smaller laptops */
+        max-width: 380px;
+    }
+}
+
+/* ✅ Tablets */
+@media (max-width: 992px) {
+    #chatbox {
+        width: 60vw;
+        max-width: 360px;
+        height: 65vh;
+    }
+}
+
+/* ✅ Mobile */
+@media (max-width: 576px) {
+    #chatbox {
+        width: 95%;   /* almost full screen */
+        right: 2.5%;
+        bottom: 70px;
+        height: 60vh;
+        border-radius: 10px;
+    }
 }
