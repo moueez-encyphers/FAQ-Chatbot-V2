@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>FAQ Chatbot</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+
+<body>
+
+  <!-- Toggle Button -->
+  <button id="chat-toggle">💬</button>
+
+  <!-- Chatbox -->
+  <div id="chatbox" style="display: {{ 'flex' if chat_open else 'none' }};">
+    <div id="chatbox-header">FAQ Chatbot</div>
+
+    <!-- Messages -->
+    <div id="chatbox-messages">
+      {% if chat_history %}
+      {% for message in chat_history %}
+      {% if message.role == 'user' %}
+      <div class="message-row user">
+        <div class="user-message">{{ message.content }}</div>
+      </div>
+      {% elif message.role == 'assistant' %}
+      <div class="message-row bot">
+        <div class="bot-message">{{ message.content }}</div>
+      </div>
+      {% endif %}
+      {% endfor %}
+      {% endif %}
+    </div>
+
+
+    <!-- Input Area -->
+    <form id="chatbox-input" method="POST">
+      <input type="text" id="user_input" name="message" placeholder="Type your question..." required>
+      <button type="submit" name="action" value="send">Send</button>
+      <button type="submit" name="action" value="clear" id="clear-btn" formnovalidate>Clear</button>
+    </form>
+  </div>
+
+  <!-- Toggle Script -->
+  <script>
+    const chatToggle = document.getElementById("chat-toggle");
+    const chatbox = document.getElementById("chatbox");
+    const messages = document.getElementById("chatbox-messages");
+
+    // Toggle popup
+    chatToggle.addEventListener("click", () => {
+      if (chatbox.style.display === "flex") {
+        chatbox.style.display = "none";
+      } else {
+        chatbox.style.display = "flex";
+        messages.scrollTop = messages.scrollHeight; // ✅ scroll down on open
+      }
+    });
+
+    // ✅ Always scroll to bottom after refresh or new message
+    window.onload = () => {
+      messages.scrollTop = messages.scrollHeight;
+    };
+
+    // Press Enter to send
+    document.getElementById("user_input").addEventListener("keypress", function (e) {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        this.form.submit();
+      }
+    });
+  </script>
+</body>
+
+</html>
